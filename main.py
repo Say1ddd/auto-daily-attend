@@ -2,18 +2,15 @@ import gspread
 from google.oauth2.credentials import Credentials
 from datetime import datetime
 import os
-from dotenv import load_dotenv
 import json
 import locale
 
 locale.setlocale(locale.LC_TIME, 'id_ID.UTF-8')
 
-load_dotenv()
-
 
 def get_credentials():
-    json.loads(os.getenv('CLIENT_SECRETS_JSON'))
-    token = json.loads(os.getenv('TOKEN_JSON'))
+    client_secrets = json.loads(os.environ['CLIENT_SECRETS_JSON'])
+    token = json.loads(os.environ['TOKEN_JSON'])
     creds = Credentials.from_authorized_user_info(token)
     return creds
 
@@ -22,7 +19,7 @@ def main():
     creds = get_credentials()
     client = gspread.authorize(creds)
 
-    sheet_url = os.getenv("SHEET_URL")
+    sheet_url = os.environ["SHEET_URL"]
     sheet = client.open_by_url(sheet_url).sheet1
 
     today = datetime.now()
