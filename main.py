@@ -22,12 +22,12 @@ def main():
     creds = get_credentials()
     client = gspread.authorize(creds)
 
-    sheet_url = 'https://docs.google.com/spreadsheets/d/1vlR8f60iC7501m63uykecz_hhWb82WATdndR8Qjtkk8/edit#gid=0'
+    sheet_url = os.getenv("SHEET_URL")
     sheet = client.open_by_url(sheet_url).sheet1
 
     today = datetime.now()
     day_name = today.strftime("%A")
-    date_string = today.strftime("%d %B %Y")  # Format date in Indonesian
+    date_string = today.strftime("%d %B %Y")
     date_time = f"{day_name}, {date_string}"
 
     next_no = len(sheet.get_all_values())
