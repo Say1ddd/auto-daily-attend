@@ -4,15 +4,16 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 import json
+import locale
+
+locale.setlocale(locale.LC_TIME, 'id_ID.UTF-8')
 
 load_dotenv()
 
 
 def get_credentials():
     json.loads(os.getenv('CLIENT_SECRETS_JSON'))
-
     token = json.loads(os.getenv('TOKEN_JSON'))
-
     creds = Credentials.from_authorized_user_info(token)
     return creds
 
@@ -26,7 +27,7 @@ def main():
 
     today = datetime.now()
     day_name = today.strftime("%A")
-    date_string = today.strftime("%d %B %Y")
+    date_string = today.strftime("%d %B %Y")  # Format date in Indonesian
     date_time = f"{day_name}, {date_string}"
 
     next_no = len(sheet.get_all_values())
