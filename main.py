@@ -26,7 +26,10 @@ def main():
     client = gspread.authorize(creds)
 
     sheet_url = os.getenv("SHEET_URL")
-    sheet = client.open_by_url(sheet_url).sheet1
+    spreadsheet = client.open_by_url(sheet_url)
+
+    sheet_name = os.getenv("SHEET_NAME")
+    sheet = spreadsheet.worksheet(sheet_name)
 
     today = datetime.now()
     day_name = days[today.weekday()]
@@ -36,7 +39,7 @@ def main():
 
     next_no = len(sheet.get_all_values()) + 1
 
-    jam_masuk = "08:00"
+    jam_masuk = "08:45"
     jam_selesai = "17:00"
     keterangan = "Hadir"
     sheet.append_row([next_no, date_time, jam_masuk, jam_selesai, keterangan])

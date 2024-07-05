@@ -25,6 +25,7 @@ jobs:
       - name: Run script
         env:
           SHEET_URL: ${{ secrets.SHEET_URL }}
+          SHEET_NAME: ${{ secrets.SHEET_NAME }}
           CLIENT_SECRETS_JSON: ${{ secrets.CLIENT_SECRETS_JSON }}
           TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
         run: python main.py
