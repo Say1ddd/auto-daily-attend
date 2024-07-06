@@ -15,34 +15,51 @@ months = [
 
 
 def get_credentials():
-    json.loads(os.getenv('CLIENT_SECRETS_JSON'))
-    token = json.loads(os.getenv('TOKEN_JSON'))
-    creds = Credentials.from_authorized_user_info(token)
-    return creds
+    try:
+        json.loads(os.getenv('CLIENT_SECRETS_JSON'))
+        token_json = json.loads(os.getenv('TOKEN_JSON'))
+
+        creds = Credentials.from_authorized_user_info(token_json)
+        return creds
+    except Exception as e:
+        print(f"Error getting credentials: {e}")
+        raise
 
 
 def main():
-    creds = get_credentials()
-    client = gspread.authorize(creds)
+    try:
+        today = datetime.now()
 
-    sheet_url = os.getenv("SHEET_URL")
-    spreadsheet = client.open_by_url(sheet_url)
+        if today.weekday() >= 5:
+            print("It's weekend. Data will not be sent to the sheet.")
+            return
 
-    sheet_name = os.getenv("SHEET_NAME")
-    sheet = spreadsheet.worksheet(sheet_name)
+        creds = get_credentials()
+        client = gspread.authorize(creds)
 
-    today = datetime.now()
-    day_name = days[today.weekday()]
-    month_name = months[today.month - 1]
-    date_string = f"{today.day} {month_name} {today.year}"
-    date_time = f"{day_name}, {date_string}"
+        sheet_url = os.getenv("SHEET_URL")
+        spreadsheet = client.open_by_url(sheet_url)
 
-    next_no = len(sheet.get_all_values()) + 1
+        sheet_name = os.getenv("SHEET_NAME")
+        sheet = spreadsheet.worksheet(sheet_name)
 
-    jam_masuk = "08:45"
-    jam_selesai = "17:00"
-    keterangan = "Hadir"
-    sheet.append_row([next_no, date_time, jam_masuk, jam_selesai, keterangan])
+        day_name = days[today.weekday()]
+        month_name = months[today.month - 1]
+        date_string = f"{today.day} {month_name} {today.year}"
+        date_time = f"{day_name}, {date_string}"
+
+        next_no = len(sheet.get_all_values()) + 1
+
+        jam_masuk = "08:45"
+        jam_selesai = "17:00"
+        keterangan = "Hadir"
+        sheet.append_row([next_no, date_time, jam_masuk, jam_selesai, keterangan])
+        print(f"Data sent successfully.")
+
+    except gspread.exceptions.APIError as e:
+        print(f"Google Sheets API error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
 
 if __name__ == "__main__":
