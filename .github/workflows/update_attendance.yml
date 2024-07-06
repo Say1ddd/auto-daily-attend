@@ -1,8 +1,8 @@
-name: Absen Hari Ini
+name: Attend
 
 on:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 2 * * *'
 
 jobs:
   update-sheet:
@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
@@ -28,4 +28,4 @@ jobs:
           SHEET_NAME: ${{ secrets.SHEET_NAME }}
           CLIENT_SECRETS_JSON: ${{ secrets.CLIENT_SECRETS_JSON }}
           TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
-        run: python main.py
+        run: python scripts/main.py
