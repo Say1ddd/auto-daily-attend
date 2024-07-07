@@ -29,33 +29,11 @@ This repository contains a Python script that automates the process of recording
     pip install google-auth google-auth-oauthlib google-auth-httplib2
     ```
 
-2. Use the `refresh_token.py` script to generate the refresh token:
-    ```python
-    import os
-    import json
-    from google.oauth2.credentials import Credentials
-    from google_auth_oauthlib.flow import InstalledAppFlow
-
-    # Load client secrets
-    with open('client_secret.json') as f:
-        client_secrets = json.load(f)
-
-    # Create the flow using the client secrets
-    flow = InstalledAppFlow.from_client_config(client_secrets, scopes=['https://www.googleapis.com/auth/spreadsheets'])
-
-    # Run the OAuth flow and obtain credentials
-    creds = flow.run_local_server(port=0)
-
-    # Save the credentials to a token file
-    with open('token.json', 'w') as token_file:
-        token_file.write(creds.to_json())
-
-    print("Refresh token has been generated and saved to token.json.")
-    ```
+2. Use the `get_refresh_token.py` script to generate the refresh token
 
 3. Run the script:
     ```bash
-    python scripts/refresh_token.py
+    python scripts/get_refresh_token.py
     ```
 
 4. Save the contents of `client_secret.json` and `token.json`.
