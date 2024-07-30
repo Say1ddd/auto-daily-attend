@@ -15,10 +15,9 @@ months = [
 ]
 
 def log_error(error_message):
-    log_file = "README.md"
+    log_file = "readme.md"
     with open(log_file, "a") as f:
-        f.write(f"\n### {datetime.now()}\n")
-        f.write(f"```\n{error_message}\n```\n")
+        f.write(f"\n### {datetime.now()} | {error_message}")
 
 def get_credentials():
     try:
