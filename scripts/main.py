@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 import json
+import sys
 
 load_dotenv()
 
@@ -13,6 +14,11 @@ months = [
     "Juli", "Agustus", "September", "Oktober", "November", "Desember"
 ]
 
+def log_error(error_message):
+    log_file = "README.md"
+    with open(log_file, "a") as f:
+        f.write(f"\n### {datetime.now()}\n")
+        f.write(f"```\n{error_message}\n```\n")
 
 def get_credentials():
     try:
@@ -22,9 +28,9 @@ def get_credentials():
         creds = Credentials.from_authorized_user_info(token_json)
         return creds
     except Exception as e:
-        print(f"Error getting credentials: {e}")
+        error_message = f"Error getting credentials: {e}"
+        log_error(error_message)
         raise
-
 
 def main():
     try:
@@ -57,10 +63,14 @@ def main():
         print(f"Data sent successfully.")
 
     except gspread.exceptions.APIError as e:
-        print(f"Google Sheets API error: {e}")
+        error_message = f"Google Sheets API error: {e}"
+        log_error(error_message)
+        print(error_message)
     except Exception as e:
-        print(f"Unexpected error: {e}")
-
+        error_message = f"Unexpected error: {e}"
+        log_error(error_message)
+        print(error_message)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
