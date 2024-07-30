@@ -86,6 +86,8 @@ jobs:
         run: python scripts/main.py
 ```
 
+## Error Log
+
 ### 5. The GitHub actions workflow should run automatically everyday at 2AM UTC.
 
 ![image](https://github.com/user-attachments/assets/3a797c61-208b-4f73-9b77-896a9f756471)
