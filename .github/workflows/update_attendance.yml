@@ -2,7 +2,7 @@ name: Attend
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 10 * * *'
 
 jobs:
   update-sheet:
@@ -30,27 +30,5 @@ jobs:
           CLIENT_SECRETS_JSON: ${{ secrets.CLIENT_SECRETS_JSON }}
           TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
         run: |
-          python scripts/main.py 2>&1 | tee output.log
+          python scripts/main.py
         continue-on-error: true
-
-      - name: Check for token expiration error
-        id: check-errors
-        run: |
-          if grep -q "invalid_grant: Token has been expired or revoked" output.log; then
-            echo "Error found"
-            echo "error=true" >> $GITHUB_ENV
-          else
-            echo "No error found"
-            echo "error=false" >> $GITHUB_ENV
-          fi
-
-      - name: Commit error log if there are errors
-        if: env.error == 'true'
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add readme.md
-          git commit -m "Update readme.md with error log"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
