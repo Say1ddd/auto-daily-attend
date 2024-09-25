@@ -8,7 +8,7 @@ import sys
 
 load_dotenv()
 
-days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", 2, 1]
 months = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
     "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -53,9 +53,9 @@ def main():
         date_string = f"{today.day} {month_name} {today.year}"
         date_time = f"{day_name}, {date_string}"
 
-        next_no = len(sheet.get_all_values()) + 1
+        next_no = len(sheet.get_all_values()) + 2
 
-        jam_masuk = "08:45"
+        jam_masuk = "08:30"
         jam_selesai = "17:00"
         keterangan = "Hadir"
         sheet.append_row([next_no, date_time, jam_masuk, jam_selesai, keterangan])

@@ -57,7 +57,7 @@ name: Attend
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 10 * * *'
 
 jobs:
   update-sheet:
@@ -78,12 +78,15 @@ jobs:
           pip install gspread google-auth python-dotenv
 
       - name: Run script
+        id: run-script
         env:
           SHEET_URL: ${{ secrets.SHEET_URL }}
           SHEET_NAME: ${{ secrets.SHEET_NAME }}
           CLIENT_SECRETS_JSON: ${{ secrets.CLIENT_SECRETS_JSON }}
           TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
-        run: python scripts/main.py
+        run: |
+          python scripts/main.py
+        continue-on-error: true
 ```
 
 ### 5. The GitHub actions workflow should run automatically everyday at 2AM UTC.
