@@ -53,7 +53,7 @@ def main():
         date_string = f"{today.day} {month_name} {today.year}"
         date_time = f"{day_name}, {date_string}"
 
-        next_no = len(sheet.get_all_values()) + 2
+        next_no = len(sheet.get_all_values())
 
         jam_masuk = "08:30"
         jam_selesai = "17:00"
