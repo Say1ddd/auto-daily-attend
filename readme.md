@@ -1,6 +1,6 @@
 # Auto Daily Attendance
 
-This repository contains a Python script that automates the process of recording daily attendance into a Google Spreadsheet. The script uses Google Sheets API for accessing and updating the sheet. A GitHub Actions workflow is set up to run the script every day at 2 AM UTC.
+This repository contains a Python script that automates the process of recording daily attendance into a Google Spreadsheet. The script uses Google Sheets API for accessing and updating the sheet. A GitHub Actions workflow is set up to run the script every day at 10 AM UTC.
 
 ## Prerequisites
 
