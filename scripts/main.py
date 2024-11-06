@@ -8,16 +8,18 @@ import sys
 
 load_dotenv()
 
-days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", 2, 1]
+days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
 months = [
     "Januari", "Februari", "Maret", "April", "Mei", "Juni",
     "Juli", "Agustus", "September", "Oktober", "November", "Desember"
 ]
 
+'''
 def log_error(error_message):
     log_file = "readme.md"
     with open(log_file, "a") as f:
         f.write(f"\n### {datetime.now()} | {error_message}")
+'''
 
 def get_credentials():
     try:
@@ -34,9 +36,10 @@ def get_credentials():
 def main():
     try:
         today = datetime.now()
+        str_day = today.strftime("%A")
 
         if today.weekday() >= 5:
-            print("It's weekend. Data will not be sent to the sheet.")
+            print(f"It's {str_day}. Data will not be sent to the sheet.")
             return
 
         creds = get_credentials()
@@ -59,7 +62,7 @@ def main():
         jam_selesai = "17:00"
         keterangan = "Hadir"
         sheet.append_row([next_no, date_time, jam_masuk, jam_selesai, keterangan])
-        print(f"Data sent successfully.")
+        print(f"Automatic attendance for `{date_time}` success.")
 
     except gspread.exceptions.APIError as e:
         error_message = f"Google Sheets API error: {e}"
