@@ -1,3 +1,5 @@
+[![Attend](https://github.com/Say1ddd/auto-daily-attend/actions/workflows/update_attendance.yml/badge.svg)](https://github.com/Say1ddd/auto-daily-attend/actions/workflows/update_attendance.yml)
+
 # Auto Daily Attendance
 
 This repository contains a Python script that automates the process of recording daily attendance into a Google Spreadsheet. The script uses Google Sheets API for accessing and updating the sheet. A GitHub Actions workflow is set up to run the script every day at 10 AM UTC.
